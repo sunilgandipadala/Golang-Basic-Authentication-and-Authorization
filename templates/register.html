@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head><title>Aptroid</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./employees">Employees</a>
+            </li>
+            <li class="nav-item">  
+                <a class="nav-link" href="./addresses">Addresses</a>
+            </li>
+          </ul>
+          
+         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </div>
+      </nav>
+    <center>
+        <h1>Welcome To Aptroid</h1>
+        </center>
+        <div class="card">
+          {{ if  .error_message }}
+              <p style="color: red;">{{ .error_message }}</p>
+          {{ end }}
+            <div class="card-body">
+        <form action="./register" method="post">
+            <div class="form-group" >
+                <label for="exampleInputName">Name</label>
+                <input type="text" name="username" value="{{ .username }}" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Enter your name">
+                <small id="namelHelp" class="form-text text-muted">Enter your full name as per your aadhar</small>
+            </div> 
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" name="email" value="{{ .email }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputage">Age</label>
+                <input type="range" name="age" value="{{ .age }}" class="form-control" min="18" id="exampleInputage">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPhone">Phone</label>
+                <input type="tel" name="phone" value="{{ .phone }}"  class="form-control" id="exampleInputPhone">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" name="password" value="{{ .password }}" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword2">Confirm Password</label>
+                <input type="text" name="cpassword" value="{{ .cpassword }}" class="form-control" id="exampleInputPassword2" placeholder="Confirm Password">
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        </div>
+</body>
+</html>
