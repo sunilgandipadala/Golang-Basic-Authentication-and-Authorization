@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Aptroid</title></head>
+<body>
+    <center>
+        <h1>Welcome To Aptroid</h1>
+        <h2>Employees Addresses In Organization</h2>
+    </center>
+    <ul>
+        {{range .employees}}
+        <li><b>Employee : {{.Name}} - {{.Id}}</b></li>
+        <li>Address: <Address>
+            <ul>
+                <li>District: {{.Address.District}}</li>
+                <li>Pincode: {{.Address.Pincode}}</li>
+            </ul>
+        </Address></li>
+        <hr>
+        {{end}}
+    </ul>
+
+</body>
+</html>
