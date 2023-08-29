@@ -16,17 +16,27 @@ type User struct {
 }
 
 //Builder - an Abstract Interface defines the methods for building the parts of the Email.
-//here actually, by constructors for each parameter, it will define each step..
+//here actually, by constructors for each attribute, it will define each step..
+//like here  we can declare like instead of the below
+/*
+type UserBuilder interface {
+	SetUserName(username string) UserBuilder
+	SetEmail(email string) UserBuilder
+	SetAge(age int) UserBuilder //optional attribute
+	SetPhone(phone string) UserBuilder //optional attribute
+	SetPassword(password string) UserBuilder
+	//and in the concrete builder which implements this interface will call all these methods .. and different concrete builders can use different optional attributes
+
+	Build() User
+}
+*/
 type UserBuilder interface {
 	SetAttributes(attributes map[string]interface{}) UserBuilder
-	//this method will be
 	Build() User
 }
 
-//Concrete Builders: we will make a dynamic Concrete Builder Class to accept all the types of same object
-
 // ConcreteBuilder: DynamicUserBuilder implements the UserBuilder interface to build a dynamic user.
-//Actually we can define different types of builders for different attributes group, but Making it dynamic is more finer right..,!
+//As here we are doing only registration of user type only definded like this..
 type DynamicUserBuilder struct {
 	user User
 }
@@ -38,7 +48,6 @@ func (b *DynamicUserBuilder) SetAttributes(attributes map[string]interface{}) Us
 
 	//HERE ACCORDING TO -- Builder Pattern we can divide these all If conditions into Individual methods instead of
 	//SetAttributes(),we can make SetUsername(),SetEmail() like that
-	//But to make it dynamic like...While director can call the same method for every number of attributes
 
 	//-- We can even Create a different method --- like for making registration for admin, and there we can take another attribute
 	//like Admin_ID also..

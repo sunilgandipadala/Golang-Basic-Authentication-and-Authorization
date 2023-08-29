@@ -14,6 +14,7 @@ import (
 
 var Logged = false
 
+// This method is to assign the values to the struct fields -Director
 func NewUserRegister(builder models.UserBuilder) *models.RegisterUser {
 	return &models.RegisterUser{Builder: builder}
 }
@@ -25,45 +26,13 @@ func Register(c *gin.Context) {
 
 	fmt.Println("You are in Registration Process")
 	//var r *http.Request = c.Request
-	//fmt.Println("Outside method....")
 	fmt.Println("Request Method", c.Request.Method)
 	if c.Request.Method == "POST" {
-		//now here needs to save the data recived from the form to db
-		//Here we are doing this directly binding it at once..., so we can do this, by below form..
+
 		if err := c.ShouldBind(&user); err != nil {
 			fmt.Print("can't bind")
 		}
-		/*
-			//In this way... we can parse the form and store it into db.. There is another way, directly we get
-				Key,Value Pair using r.Form()
-
-					err := r.ParseForm()
-					if err != nil {
-						c.String(501, "No Form")
-						return
-					}*/
 		fmt.Println("Inside")
-		//fmt.Println(r.Form) #instead of this, we can pass the r.Form
-		/*name := r.FormValue("username")
-		email := r.FormValue("email")
-		age := r.FormValue("age")
-		phone := r.FormValue("phone")
-		password := r.FormValue("password")
-		cpassword := r.FormValue("cpassword")
-		user.Name = name
-		user.Email = email
-		user.Age, err = strconv.Atoi(age)
-		if err != nil {
-			user.Age = 0
-		}
-		user.Phone = phone
-		user.Password = password
-		user.ConfirmPassword = cpassword
-		//fmt.Println("\nuser..", user)
-
-		err := db.Create(&user).Error*/
-
-		//Here I have to pass user as key value pairs...
 
 		inrec, _ := json.Marshal(user)
 		json.Unmarshal(inrec, &users)
