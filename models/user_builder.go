@@ -35,6 +35,13 @@ type DynamicUserBuilder struct {
 
 //Here we can directly use the user data,but to use this build process step-by-step
 func (b *DynamicUserBuilder) SetAttributes(attributes map[string]interface{}) UserBuilder {
+
+	//HERE ACCORDING TO -- Builder Pattern we can divide these all If conditions into Individual methods instead of
+	//SetAttributes(),we can make SetUsername(),SetEmail() like that
+	//But to make it dynamic like...While director can call the same method for every number of attributes
+
+	//-- We can even Create a different method --- like for making registration for admin, and there we can take another attribute
+	//like Admin_ID also..
 	if username, ok := attributes["username"].(string); ok {
 		b.user.Name = username
 	}
