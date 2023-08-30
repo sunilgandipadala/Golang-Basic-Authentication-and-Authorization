@@ -94,6 +94,9 @@ type RegisterUser struct {
 }
 
 func (c *RegisterUser) UserRegistration(attributes map[string]interface{}) User {
+	//Here we are directly calling the SetAttributes..
+	//If we have different types of registeration like users, admins and some more... Then we have to check the type first
+	//and based on that type the SetUserName()... and other will be called and Build...
 	return c.Builder.SetAttributes(attributes).Build()
 	//here first SetAttributes will be called then Build method will called..
 	// The set Attrinutes is where the step by step processes gets completed
