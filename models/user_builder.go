@@ -16,17 +16,27 @@ type User struct {
 }
 
 //Builder - an Abstract Interface defines the methods for building the parts of the Email.
-//here actually, by constructors for each parameter, it will define each step..
+//here actually, by constructors for each attribute, it will define each step..
+//like here  we can declare like instead of the below
+/*
+type UserBuilder interface {
+	SetUserName(username string) UserBuilder
+	SetEmail(email string) UserBuilder
+	SetAge(age int) UserBuilder //optional attribute
+	SetPhone(phone string) UserBuilder //optional attribute
+	SetPassword(password string) UserBuilder
+	//and in the concrete builder which implements this interface will call all these methods .. and different concrete builders can use different optional attributes
+
+	Build() User
+}
+*/
 type UserBuilder interface {
 	SetAttributes(attributes map[string]interface{}) UserBuilder
-	//this method will be
 	Build() User
 }
 
-//Concrete Builders: we will make a dynamic Concrete Builder Class to accept all the types of same object
-
 // ConcreteBuilder: DynamicUserBuilder implements the UserBuilder interface to build a dynamic user.
-//Actually we can define different types of builders for different attributes group, but Making it dynamic is more finer right..,!
+//As here we are doing only registration of user type only definded like this..
 type DynamicUserBuilder struct {
 	user User
 }
@@ -35,6 +45,12 @@ type DynamicUserBuilder struct {
 
 //Here we can directly use the user data,but to use this build process step-by-step
 func (b *DynamicUserBuilder) SetAttributes(attributes map[string]interface{}) UserBuilder {
+
+	//HERE ACCORDING TO -- Builder Pattern we can divide these all If conditions into Individual methods instead of
+	//SetAttributes(),we can make SetUsername(),SetEmail() like that
+
+	//-- We can even Create a different method --- like for making registration for admin, and there we can take another attribute
+	//like Admin_ID also..
 	if username, ok := attributes["username"].(string); ok {
 		b.user.Name = username
 	}
@@ -78,6 +94,9 @@ type RegisterUser struct {
 }
 
 func (c *RegisterUser) UserRegistration(attributes map[string]interface{}) User {
+	//Here we are directly calling the SetAttributes..
+	//If we have different types of registeration like users, admins and some more... Then we have to check the type first
+	//and based on that type the SetUserName()... and other will be called and Build...
 	return c.Builder.SetAttributes(attributes).Build()
 	//here first SetAttributes will be called then Build method will called..
 	// The set Attrinutes is where the step by step processes gets completed
