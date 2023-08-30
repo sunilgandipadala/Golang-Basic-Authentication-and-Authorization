@@ -26,7 +26,6 @@ func Greetings(c *gin.Context) {
 
 // To read all the employees data into a structred JSON format
 func GetEmployees(c *gin.Context) {
-	object(c)
 	c.HTML(http.StatusOK, "employees.html", gin.H{"employees": emp})
 	//c.IndentedJSON(http.StatusOK, models.Employ)
 }
@@ -34,8 +33,6 @@ func GetEmployees(c *gin.Context) {
 // To get all the employees addresses
 // this method is something like duplicative/repitative
 func GetAddresses(c *gin.Context) {
-
-	object(c)
 	c.HTML(http.StatusOK, "employes_addresses.html", gin.H{"employees": emp})
 }
 
