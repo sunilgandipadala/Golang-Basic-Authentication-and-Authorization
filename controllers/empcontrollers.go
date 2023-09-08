@@ -26,6 +26,7 @@ func Greetings(c *gin.Context) {
 
 // To read all the employees data into a structred JSON format
 func GetEmployees(c *gin.Context) {
+	db.Find(&emp)
 	c.HTML(http.StatusOK, "employees.html", gin.H{"employees": emp})
 	//c.IndentedJSON(http.StatusOK, models.Employ)
 }

@@ -25,5 +25,9 @@ func Route() {
 	r.POST("/register", controllers.Register)
 	r.GET("/login", controllers.LoginPage)
 	r.POST("/login", controllers.Login)
+
+	//For testing Purpose
+	r.GET("/testget", controllers.Testget)
+	r.POST("/testpost", controllers.TestPost)
 	r.Run() //here we can even mention the path to run the server like the port .
 }

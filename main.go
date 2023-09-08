@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//lets connect to DB
-	models.ConnectDB()
+	models.ConnectingDB()
 	//routes
 	routers.Route()
 	fmt.Println("hello World")
