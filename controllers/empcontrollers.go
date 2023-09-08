@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"GO_Practice/infastructure"
 	"GO_Practice/models"
 
 	"github.com/gin-gonic/gin"
@@ -11,14 +12,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var emp []models.Employees
-var db = models.ConnectDB()
-var object = func(c *gin.Context) {
-	if err := db.Find(&emp).Error; err != nil {
-		c.JSON(500, gin.H{"error": "failed to fetch address"})
-		return
-	}
-}
+emp,err := services.GetEmployData()
 
 func Greetings(c *gin.Context) {
 	c.HTML(http.StatusOK, "hello.html", nil)
@@ -41,7 +35,6 @@ func GetAddresses(c *gin.Context) {
 func GetAddress(c *gin.Context) {
 
 	emp_id := c.Param("id")
-	object(c)
 	for _, employ := range emp {
 		if employ.Id == emp_id {
 			c.HTML(200, "employ_address.html", gin.H{"emp_name": employ.Name,

@@ -1,11 +1,27 @@
 package models
 
-import "strconv"
+import (
+	"GO_Practice/infastructure"
+	"strconv"
+)
+
+type Employees struct {
+	Name    string `json:"name" gorm:"not null"`
+	Id      string `gorm:"primarykey;" json:"id"`
+	Gender  string `json:"gender"`
+	Role    string `json:"role"`
+	Address Adress `json:"address" gorm:"embedded"`
+}
+type Adress struct {
+	District string `json:"district"`
+	State    string `gorm:"-" json:"state"`
+	Pincode  int    `json:"pincode"`
+}
 
 // these register users can only see the employees data and can add employees
 
 // now I have to convert this Struct to BUILDER DESIGN PATTREN
-//Product
+// Product
 type User struct {
 	Name            string `json:"username" form:"username"  gorm:"type:text"`
 	Email           string `json:"email" form:"email" gorm:"unique"`
@@ -36,14 +52,14 @@ type UserBuilder interface {
 }
 
 // ConcreteBuilder: DynamicUserBuilder implements the UserBuilder interface to build a dynamic user.
-//As here we are doing only registration of user type only definded like this..
+// As here we are doing only registration of user type only definded like this..
 type DynamicUserBuilder struct {
 	user User
 }
 
 //Builder Methods Implementation
 
-//Here we can directly use the user data,but to use this build process step-by-step
+// Here we can directly use the user data,but to use this build process step-by-step
 func (b *DynamicUserBuilder) SetAttributes(attributes map[string]interface{}) UserBuilder {
 
 	//HERE ACCORDING TO -- Builder Pattern we can divide these all If conditions into Individual methods instead of
@@ -80,7 +96,7 @@ func (b *DynamicUserBuilder) SetAttributes(attributes map[string]interface{}) Us
 }
 
 func (b *DynamicUserBuilder) Build() User {
-	var db = ConnectDB()
+	var db = infastructure.DB
 	err := db.Create(&b.user).Error
 	if err != nil {
 		return b.user
